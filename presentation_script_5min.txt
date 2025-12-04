@@ -1,0 +1,136 @@
+# 5-Minute Presentation Script
+## Financial Cybersecurity Report Q3 2024
+
+**Total Duration: 5 minutes (300 seconds)**  
+**Per Slide: ~20-25 seconds average**
+
+---
+
+## SLIDE 1: Cover Page (15 seconds)
+*"Good morning/afternoon everyone. Today I'm presenting our Q3 2024 Financial Cybersecurity Report. My name is Ajax Abonga, and I serve in the Office of the Chief Information Security Officer. This report has been prepared for our Board of Directors and Executive Committee, and focuses on translating our cybersecurity efforts into measurable financial outcomes."*
+
+---
+
+## SLIDE 2: Table of Contents (10 seconds)
+*"We'll be covering twelve key areas today: from executive summary through threat landscape, risk indicators, industry benchmarking, a critical case study, our investment performance, and concluding with our strategic budget request and 2025 outlook."*
+
+---
+
+## SLIDE 3: Executive Summary (25 seconds)
+*"Let me start with the bottom line. This quarter, we achieved a 15% reduction in overall risk quarter-over-quarter, while preventing 2.4 million dollars in potential losses. Our return on investment stands at 3.5x, and we've maintained 99.9% uptime on all critical systems. This pie chart shows our risk mitigation status - with 65% of identified risks now fully mitigated, 25% in progress, and only 10% remaining unaddressed."*
+
+---
+
+## SLIDE 4: Scope & Methodology (20 seconds)
+*"Our analysis covers Q3 2024, focusing on revenue-critical infrastructure. We assessed four key systems: Core Banking at $45,000 per hour of downtime, our Customer Vault with significant GDPR implications, the Swift Gateway for transaction security, and Internal HR systems. We're using both NIST CSF 2.0 for security controls and the FAIR framework to quantify risk in financial terms."*
+
+---
+
+## SLIDE 5: Quantifying Financial Risk (25 seconds)
+*"To make data-driven decisions, we use the Annualized Loss Expectancy model, or ALE. It's simple: multiply the Single Loss Expectancy by the Annual Rate of Occurrence. For example, if a data breach would cost us 5 million dollars, and we estimate a 10% probability this year, our annualized risk is $500,000. This means spending $100,000 on mitigation yields a positive ROI of 5x, but spending $600,000 would be wasteful."*
+
+---
+
+## SLIDE 6: Current Threat Landscape (25 seconds)
+*"We face three primary threats. First, ransomware - averaging 1.85 million dollars per incident in our sector. Our immutable backups and EDR systems have significantly reduced this exposure. Second, Business Email Compromise, which targets wire transfers and accounts payable. Our AI filtering currently blocks 99.8% of these attempts. Third, supply chain risk - we're auditing our top 20 vendors to prevent third-party liability from entering our environment."*
+
+---
+
+## SLIDE 7: Key Risk Indicators (20 seconds)
+*"Looking at our Key Performance Indicators: we currently have 4 critical vulnerabilities versus a target of zero - these are in a legacy ERP system being decommissioned in Q4. Our endpoint compliance is excellent at 98%, our phishing click rate is below 5% at 3.2%, and our Mean Time to Detect is just 2 hours, well below our 4-hour target."*
+
+---
+
+## SLIDE 8: Industry Benchmarking (15 seconds)
+*"Compared to our peers, we're outperforming significantly. We patch systems in 9 days versus the industry average of 21 days - that's twice as fast. And we're doing this while spending only 11% of our IT budget on security, compared to the industry standard of 14%."*
+
+---
+
+## SLIDE 9: Cost of Downtime (20 seconds)
+*"High availability isn't just technical - it's financial. Our core banking system generates $45,000 per hour in revenue. Factor in idle labor costs, and a one-hour outage costs us $85,000. A 24-hour outage? Over 2 million dollars. This chart shows how quickly losses escalate, which justifies our investment in high-availability infrastructure."*
+
+---
+
+## SLIDE 10: Case Study - The "Near Miss" (30 seconds)
+*"On August 12th, we had a real-world test of our systems. A live ransomware attack targeted one of our servers. Our EDR system detected and contained it in 30 seconds - automatically, with no human intervention required. The potential loss? 5 million dollars in data exfiltration and downtime. Our actual remediation cost? Just $50,000. That's a net savings of $4.95 million. This single incident paid for our entire EDR system's annual license in 30 seconds."*
+
+---
+
+## SLIDE 11: Investment Performance (15 seconds)
+*"This chart shows our Return on Security Investment for major programs. EDR is our top performer, followed by our Security Training program. Cloud security and access management also show positive returns. Every dollar we've invested this year is demonstrably reducing risk."*
+
+---
+
+## SLIDE 12: Budget Request (20 seconds)
+*"For Q4, we're requesting $2.4 million in targeted investments. The priority allocations include $85,000 for Cloud Security to address API breach risks, $40,000 for insider threat detection to protect intellectual property, and $25,000 for compliance audits to avoid regulatory fines. This chart shows the complete allocation strategy."*
+
+---
+
+## SLIDE 13: Strategic Outlook & Conclusion (30 seconds)
+*"Looking ahead to 2025, we're focusing on three strategic pillars: Zero Trust Architecture to reduce lateral movement risk by 80%, automation and AI for Level 1 alert handling, and optimizing our cyber insurance to reduce premiums by 20%. My recommendations to the Board are: approve the Q4 budget, endorse our Zero Trust roadmap, and establish a quarterly Cyber-Risk Committee with the CFO and CISO to review these financial metrics regularly."*
+
+---
+
+## SLIDE 14: Q&A (15 seconds)
+*"That concludes my presentation. In summary, we've demonstrated measurable value through the August incident alone - nearly 5 million dollars in avoided losses. We're operating more efficiently than our peers while maintaining superior security posture. I'm now ready to take your questions on any aspect of the report, from ROI justification to our Zero Trust implementation timeline."*
+
+---
+
+## TIMING BREAKDOWN:
+- **Introduction & Summary:** 1 min 15 sec (Slides 1-3)
+- **Methodology & Risk:** 1 min 10 sec (Slides 4-5)
+- **Threats & Performance:** 1 min 35 sec (Slides 6-9)
+- **Case Study & ROI:** 1 min 5 sec (Slides 10-11)
+- **Budget & Conclusion:** 1 min 5 sec (Slides 12-13)
+- **Q&A Opening:** 15 sec (Slide 14)
+
+**TOTAL: ~5 minutes**
+
+---
+
+## PRESENTATION TIPS:
+
+### Pacing:
+- Speak clearly and confidently at a moderate pace
+- Pause briefly between major sections
+- Use the visuals - let charts speak while you provide context
+
+### Key Phrases to Emphasize:
+- "**$4.95 million in avoided losses**"
+- "**3.5x return on investment**"
+- "**Twice as fast as industry average**"
+- "**30 seconds to contain a live attack**"
+
+### Body Language:
+- Maintain eye contact with different board members
+- Use hand gestures when discussing numbers
+- Point to charts when referencing specific data
+- Stand confidently but not rigidly
+
+### If You Need to Adjust Time:
+**To shorten (4 minutes):**
+- Combine slides 7-8 (KRIs and Benchmarking)
+- Reduce case study detail on slide 10
+
+**To extend (6 minutes):**
+- Add more detail on the August incident
+- Expand on each strategic pillar in slide 13
+- Provide more context on threat landscape
+
+### Handling Questions:
+- Listen fully before responding
+- Refer back to specific slides when relevant
+- If you don't know an answer: "That's an excellent question - I'll get you detailed information after this meeting"
+
+---
+
+## CONFIDENCE BOOSTERS:
+
+Remember: **You know this material better than anyone in the room.**
+
+The data speaks for itself:
+- You prevented a $5M loss
+- You're outperforming the industry
+- You're asking for reasonable, justified investments
+
+**Good luck with your presentation!**
