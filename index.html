@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Cybersecurity Report Q3 2024</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap');
+        :root {
+            --primary: #00ff00;
+            --secondary: #000000;
+            --accent: #00ffff;
+            --success: #00ff00;
+            --warning: #ffa500;
+            --danger: #ff4444;
+            --light: #1a1a1a;
+            --dark: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 100%;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        /* Titres avec Press Start 2P */
+        h1, h2, h3, .section-title, .toc-title, .qa-title {
+            font-family: 'Press Start 2P', monospace;
+            line-height: 1.6;
+            letter-spacing: 0.05em;
+        }
+
+        /* Slide Container */
+        .slide {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            padding: 30px;
+            overflow: hidden;
+            position: relative;
+            background: #000000;
+            border: 2px solid #00ff00;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .slide > * {
+            flex-shrink: 1;
+        }
+
+        strong {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        /* Terminal Navigation */
+        .nav {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 8px 15px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Slide Counter */
+        .slide-counter {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            color: #00ff00;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            z-index: 9999;
+            background: rgba(0, 255, 0, 0.1);
+            padding: 6px 12px;
+            border: 1px solid #00ff00;
+        }
+
+        /* Terminal Header */
+        .terminal-header {
+            color: #00ff00;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #00ff00;
+        }
+
+        .terminal-header::before {
+            content: '> ';
+            color: #00ffff;
+        }
+
+        /* Cover Page */
+        .cover {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #ffffff;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .cover h1 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            animation: flicker 2s infinite;
+            letter-spacing: 2px;
+            color: #00ff00;
+            line-height: 1.6;
+        }
+
+        .cover h1::before {
+            content: '$ ';
+            color: #00ffff;
+        }
+
+        .cover h2 {
+            font-size: 0.85rem;
+            color: #00ffff;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .cover-info {
+            margin-top: 40px;
+        }
+
+        .cover-info p {
+            font-size: 0.85rem;
+            margin: 8px 0;
+            color: #ffffff;
+        }
+
+        .cover-info p strong {
+            color: #ffa500;
+        }
+
+        .cover-info p::before {
+            content: '>> ';
+            color: #00ffff;
+        }
+
+        /* Section */
+        .section {
+            background: transparent;
+            color: #ffffff;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            color: #00ff00;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #00ff00;
+            line-height: 1.5;
+        }
+
+        .section-title::before {
+            content: '# ';
+            color: #00ffff;
+        }
+
+        .section-subtitle {
+            font-size: 0.8rem;
+            color: #00ffff;
+            margin: 15px 0 10px;
+            font-weight: normal;
+            line-height: 1.5;
+        }
+
+        .section-subtitle::before {
+            content: '## ';
+            color: #ffa500;
+        }
+
+        .section p {
+            color: #ffffff;
+            line-height: 1.4;
+            font-size: 0.85rem;
+            margin: 8px 0;
+        }
+
+        /* TOC */
+        .toc {
+            background: transparent;
+            color: #ffffff;
+        }
+
+        .toc-title {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #00ff00;
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .toc-title::before {
+            content: '$ cat TABLE_OF_CONTENTS.txt\n';
+            display: block;
+            color: #00ffff;
+            font-size: 0.6rem;
+            margin-bottom: 8px;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .toc-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .toc-item {
+            background: rgba(0, 255, 0, 0.05);
+            padding: 10px 15px;
+            border-left: 3px solid #00ff00;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Space Mono', monospace;
+            color: #ffffff;
+            font-size: 0.8rem;
+        }
+
+        .toc-item:hover {
+            background: rgba(0, 255, 0, 0.1);
+            border-left-color: #00ffff;
+            color: #00ffff;
+        }
+
+        .toc-item-num {
+            display: inline-block;
+            width: 35px;
+            color: #ffa500;
+            font-size: 0.75rem;
+        }
+
+        .toc-item-title {
+            display: inline;
+            color: #ffffff;
+            font-size: 0.75rem;
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .card {
+            background: rgba(0, 255, 0, 0.05);
+            color: #ffffff;
+            padding: 15px;
+            border: 2px solid #00ff00;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            background: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+
+        .card-title {
+            font-size: 0.7rem;
+            margin-bottom: 8px;
+            color: #ffa500;
+            text-transform: uppercase;
+        }
+
+        .card-title::before {
+            content: '[+] ';
+            color: #00ff00;
+        }
+
+        .card-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #00ff00;
+        }
+
+        .card-desc {
+            font-size: 0.7rem;
+            color: #cccccc;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: rgba(255, 165, 0, 0.08);
+            border-left: 3px solid #ffa500;
+            padding: 12px;
+            margin: 12px 0;
+            color: #ffffff;
+        }
+
+        .info-box.blue {
+            background: rgba(0, 255, 255, 0.08);
+            border-left-color: #00ffff;
+        }
+
+        .info-box.green {
+            background: rgba(0, 255, 0, 0.08);
+            border-left-color: #00ff00;
+        }
+
+        .info-box::before {
+            content: '[INFO] ';
+            color: #ffa500;
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+
+        .info-box p, .info-box li {
+            color: #ffffff;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            margin: 5px 0;
+        }
+
+        .info-box ul {
+            margin: 8px 0;
+        }
+
+        .info-box h4 {
+            color: #00ffff;
+            margin-bottom: 8px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.7rem;
+            line-height: 1.5;
+        }
+
+        /* Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            border: 2px solid #00ff00;
+            font-size: 0.75rem;
+        }
+
+        .data-table thead {
+            background: rgba(0, 255, 0, 0.15);
+            color: #00ffff;
+            border-bottom: 2px solid #00ff00;
+        }
+
+        .data-table th, .data-table td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #00ff00;
+            color: #ffffff;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .data-table tbody tr {
+            transition: background 0.3s;
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(0, 255, 0, 0.08);
+        }
+
+        .data-table tbody tr:nth-child(even) {
+            background: rgba(0, 255, 0, 0.03);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            margin: 15px 0;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid #00ff00;
+            background: rgba(0, 255, 0, 0.03);
+        }
+
+        .chart-container img {
+            max-width: 100%;
+            max-height: 300px;
+            width: auto;
+            height: auto;
+            filter: brightness(0.9) contrast(1.1);
+            transition: transform 0.3s;
+        }
+
+        .chart-container img:hover {
+            transform: scale(1.02);
+        }
+
+        .chart-container p {
+            color: #cccccc;
+            margin-top: 5px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+        }
+
+        .chart-container p::before {
+            content: '▶ ';
+            color: #00ffff;
+        }
+
+        /* Framework Box */
+        .framework {
+            background: rgba(0, 255, 255, 0.05);
+            padding: 12px;
+            margin: 12px 0;
+            border: 2px solid #00ffff;
+            color: #ffffff;
+        }
+
+        .framework h3 {
+            color: #00ffff;
+            margin-bottom: 8px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.7rem;
+            line-height: 1.5;
+        }
+
+        .framework h3::before {
+            content: '◆ ';
+        }
+
+        .framework p {
+            color: #ffffff;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .framework.nist {
+            border-color: #00ffff;
+        }
+
+        .framework.fair {
+            border-color: #00ff00;
+        }
+
+        /* Formula Box */
+        .formula {
+            background: rgba(0, 255, 0, 0.08);
+            color: #00ff00;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            border: 2px solid #00ff00;
+        }
+
+        /* Definition Box */
+        .definition {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(0, 255, 0, 0.05);
+            border-left: 3px solid #00ff00;
+            color: #ffffff;
+        }
+
+        .definition-label {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            padding: 10px 20px;
+            border: 1px solid #00ff00;
+            font-weight: bold;
+            margin-right: 20px;
+            min-width: 80px;
+            text-align: center;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .definition-label.aro {
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+            border-color: #00ffff;
+        }
+
+        /* Example Box */
+        .example {
+            background: rgba(255, 165, 0, 0.08);
+            border: 2px solid #ffa500;
+            padding: 12px;
+            margin: 12px 0;
+            color: #ffffff;
+        }
+
+        .example h4 {
+            color: #ffa500;
+            margin-bottom: 8px;
+            font-size: 0.7rem;
+            font-family: 'Press Start 2P', monospace;
+            line-height: 1.5;
+        }
+
+        .example h4::before {
+            content: '⚠ ';
+        }
+
+        .example p {
+            color: #ffffff;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            margin: 5px 0;
+        }
+
+        .example ul {
+            margin-left: 25px;
+            margin: 8px 0 8px 25px;
+        }
+
+        .example li {
+            color: #ffffff;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .example span {
+            color: #00ff00;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 255, 0, 0.05);
+            color: #ffffff;
+            text-align: center;
+            padding: 30px;
+            border-top: 2px solid #00ff00;
+        }
+
+        /* Q&A Section */
+        .qa-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .qa-title {
+            font-size: 1.1rem;
+            text-align: center;
+            color: #00ff00;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            line-height: 1.6;
+        }
+
+        .qa-title::before {
+            content: '$ ';
+            color: #00ffff;
+        }
+
+        .qa-prompt {
+            font-size: 1.2rem;
+            text-align: center;
+            color: #ffffff;
+            margin: 15px 0;
+        }
+
+        .qa-contact {
+            background: rgba(0, 255, 255, 0.08);
+            border: 2px solid #00ffff;
+            padding: 12px;
+            margin: 12px 0;
+            color: #ffffff;
+        }
+
+        .qa-contact h3 {
+            color: #00ffff;
+            margin-bottom: 10px;
+            font-size: 0.7rem;
+            line-height: 1.5;
+        }
+
+        .qa-contact h3::before {
+            content: '📧 ';
+        }
+
+        .qa-contact p {
+            margin: 5px 0;
+            font-size: 0.75rem;
+        }
+
+        .qa-thanks {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #00ff00;
+            margin-top: 20px;
+            animation: flicker 3s infinite;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cover h1 {
+                font-size: 2rem;
+            }
+            .slide {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Controls -->
+    <div class="slide-counter" id="slideCounter">SLIDE 1 / 13</div>
+    <nav class="nav">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◄ PREV</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">NEXT ►</button>
+    </nav>
+
+    <!-- Slide 1: Cover Page -->
+    <div class="slide active" id="slide1">
+        <div class="cover">
+        <h1>FINANCIAL<br>CYBERSECURITY<br>REPORT</h1>
+        <h2>Q3 2024 EXECUTIVE REVIEW</h2>
+        
+        <div class="cover-info">
+            <p><strong>PREPARED FOR:</strong></p>
+            <p>Board of Directors & Executive Committee</p>
+            <p style="margin-top: 30px;"><strong>AUTHOR:</strong></p>
+            <p>Ajax Abonga - Office of the CISO</p>
+            <p style="margin-top: 30px; font-style: italic; opacity: 0.8;">October 24, 2024 | Confidential</p>
+        </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: Table of Contents -->
+    <div class="slide" id="slide2">
+        <div class="toc section">
+            <h2 class="toc-title">TABLE OF CONTENTS</h2>
+            <div class="toc-list">
+                <div class="toc-item" onclick="goToSlide(3)">
+                    <span class="toc-item-num">[01]</span>
+                    <span class="toc-item-title">Executive Summary</span>
+                </div>
+                <div class="toc-item" onclick="goToSlide(4)">
+                    <span class="toc-item-num">[02]</span>
+                    <span class="toc-item-title">Scope & Methodology</span>
+                </div>
+                <div class="toc-item" onclick="goToSlide(5)">
+                    <span class="toc-item-num">[03]</span>
+                    <span class="toc-item-title">Quantifying Financial Risk</span>
+                </div>
+                <div class="toc-item" onclick="goToSlide(6)">
+                    <span class="toc-item-num">[04]</span>
+                    <span class="toc-item-title">Current Threat Landscape</span>
+                </div>
+                <div class="toc-item" onclick="goToSlide(7)">
+                    <span class="toc-item-num">[05]</span>
+                    <span class="toc-item-title">Key Risk Indicators</span>
+                </div>
+                <div class="toc-item" onclick="goToSlide(8)">
+                    <span class="toc-item-num">[06]</span>
+                    <span class="toc-item-title">Industry Benchmarking</span>
+                </div>
+                <div class="toc-item" onclick="goToSlide(9)">
+                    <span class="toc-item-num">[07]</span>
+                    <span class="toc-item-title">Cost of Downtime</span>
+                </div>
+                <div class="toc-item" onclick="goToSlide(10)">
+                    <span class="toc-item-num">[08]</span>
+                    <span class="toc-item-title">Case Study: Near Miss</span>
+                </div>
+                <div class="toc-item" onclick="goToSlide(11)">
+                    <span class="toc-item-num">[09]</span>
+                    <span class="toc-item-title">Investment Performance</span>
+                </div>
+                <div class="toc-item" onclick="goToSlide(12)">
+                    <span class="toc-item-num">[10]</span>
+                    <span class="toc-item-title">Budget Request</span>
+                </div>
+                <div class="toc-item" onclick="goToSlide(13)">
+                    <span class="toc-item-num">[11]</span>
+                    <span class="toc-item-title">Strategic Outlook</span>
+                </div>
+                <div class="toc-item" onclick="goToSlide(14)">
+                    <span class="toc-item-num">[12]</span>
+                    <span class="toc-item-title">Questions & Answers</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Executive Summary -->
+    <div class="slide" id="slide3">
+        <div class="section">
+            <h2 class="section-title">1. Executive Summary</h2>
+            
+            <div class="info-box blue">
+                <p>This quarter, the cybersecurity strategy has shifted focus from purely technical metrics to financial risk quantification. By aligning our security posture with the organization's fiscal objectives, we have demonstrated tangible value in risk avoidance and operational stability.</p>
+            </div>
+
+            <h3 class="section-subtitle">Key Financial Outcomes</h3>
+            
+            <div class="cards">
+                <div class="card">
+                    <div class="card-title">Risk Reduction</div>
+                    <div class="card-value">15%</div>
+                    <div class="card-desc">Quarter-over-Quarter decrease</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Cost Avoidance</div>
+                    <div class="card-value">$2.4M</div>
+                    <div class="card-desc">Prevented losses</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">ROI Performance</div>
+                    <div class="card-value">3.5x</div>
+                    <div class="card-desc">Return on Investment</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Uptime</div>
+                    <div class="card-value">99.9%</div>
+                    <div class="card-desc">Critical systems availability</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <img src="chart_risk_pie.png" alt="Risk Mitigation Status">
+                <p style="margin-top: 15px; color: #00ffff; font-style: italic;">Q3 Risk Mitigation Status</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Scope & Methodology -->
+    <div class="slide" id="slide4">
+        <div class="section">
+            <h2 class="section-title">2. Scope & Methodology</h2>
+            
+            <div class="info-box" style="margin: 8px 0; padding: 8px; font-size: 0.75rem;">
+                <strong>📅 REPORTING PERIOD:</strong> Q3 2024 (July 1 - September 30, 2024)
+            </div>
+
+            <p style="margin: 8px 0; font-size: 0.8rem; line-height: 1.3;">This report analyzes operational data focusing specifically on infrastructure vital for revenue generation and regulatory compliance.</p>
+
+            <h3 class="section-subtitle" style="font-size: 0.75rem; margin: 10px 0 8px 0;">2.1 Critical Systems in Scope</h3>
+            <p style="margin: 5px 0; font-size: 0.75rem;">Core operational infrastructure with direct financial impact:</p>
+
+            <table class="data-table" style="font-size: 0.7rem; margin: 8px 0;">
+                <thead>
+                    <tr>
+                        <th style="padding: 6px;">System Name</th>
+                        <th style="padding: 6px;">Business Function</th>
+                        <th style="padding: 6px;">Financial Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Core Banking</td>
+                        <td>Revenue Engine</td>
+                        <td>High ($45k/hr)</td>
+                    </tr>
+                    <tr>
+                        <td>Customer Vault</td>
+                        <td>Reputational</td>
+                        <td>Critical (GDPR Fines)</td>
+                    </tr>
+                    <tr>
+                        <td>Swift Gateway</td>
+                        <td>Transactions</td>
+                        <td>High (Direct Fraud)</td>
+                    </tr>
+                    <tr>
+                        <td>Internal HR</td>
+                        <td>Operations</td>
+                        <td>Medium (Productivity)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="section-subtitle" style="font-size: 0.75rem; margin: 10px 0 8px 0;">2.2 Risk Framework</h3>
+            <p style="margin: 5px 0; font-size: 0.75rem;">Assessment methodology aligns with industry-standard frameworks:</p>
+
+            <div class="framework nist" style="padding: 8px; margin: 8px 0;">
+                <h3 style="font-size: 0.65rem; margin-bottom: 5px;">🔷 NIST CSF 2.0</h3>
+                <p style="font-size: 0.7rem; line-height: 1.3;">Structure for security controls: Identify, Protect, Detect, Respond, Recover.</p>
+            </div>
+
+            <div class="framework fair" style="padding: 8px; margin: 8px 0;">
+                <h3 style="font-size: 0.65rem; margin-bottom: 5px;">🔶 FAIR</h3>
+                <p style="font-size: 0.7rem; line-height: 1.3;">Quantifies risk in financial terms for data-driven budget allocation.</p>
+            </div>
+
+            <div class="info-box" style="padding: 8px; margin: 8px 0; font-size: 0.7rem;">
+                <p><strong>Note:</strong> Scope excludes non-critical dev environments. Financial figures based on current revenue models.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Quantifying Financial Risk -->
+    <div class="slide" id="slide5">
+        <div class="section">
+            <h2 class="section-title">3. Quantifying Financial Risk</h2>
+            
+            <div class="info-box blue">
+                <p>To prioritize our budget effectively, we utilize the Annualized Loss Expectancy (ALE) model. This approach moves us from subjective 'gut feeling' to objective, data-driven financial decisions.</p>
+            </div>
+
+            <h3 class="section-subtitle">The Financial Formula</h3>
+            
+            <div class="chart-container">
+                <img src="img_formula.png" alt="ALE Formula" style="max-width: 500px;">
+            </div>
+
+            <div class="definition">
+                <div class="definition-label">SLE</div>
+                <div>Single Loss Expectancy - Total monetary cost of a single event</div>
+            </div>
+
+            <div class="definition">
+                <div class="definition-label aro">ARO</div>
+                <div>Annual Rate of Occurrence - Probability within 12 months</div>
+            </div>
+
+            <h3 class="section-subtitle">Strategic Example: Data Breach Scenario</h3>
+            
+            <div class="example">
+                <h4>💼 Scenario Analysis</h4>
+                <p><strong>SCENARIO:</strong> A specific data breach is estimated to cost $5,000,000 (SLE) and threat intelligence suggests a 10% chance of occurrence this year (ARO).</p>
+                <p style="margin-top: 15px;"><strong>CALCULATION:</strong> $5,000,000 × 0.10 = <span style="color: var(--accent); font-weight: bold; font-size: 1.2rem;">$500,000</span> (Annualized Risk)</p>
+                <p style="margin-top: 15px;"><strong>DECISION:</strong> Spending $100,000 to mitigate this risk yields a positive ROI of 5x. However, spending $600,000 would be fiscally irresponsible.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Current Threat Landscape -->
+    <div class="slide" id="slide6">
+        <div class="section">
+            <h2 class="section-title">4. Current Threat Landscape</h2>
+            
+            <p>We have identified three primary threat vectors that pose the most significant financial liability to the organization in Q3 2024. Each represents a distinct financial risk profile requiring specific mitigation strategies.</p>
+
+            <h3 class="section-subtitle">4.1 Ransomware</h3>
+            <div class="info-box">
+                <p><strong>Financial Impact:</strong> High. Primarily driven by operational downtime and data recovery costs.</p>
+                <p><strong>Industry Context:</strong> The average cost of a ransomware incident in our sector is currently $1.85 Million.</p>
+                <p><strong>Mitigation:</strong> Implementation of immutable backups and EDR (Endpoint Detection Response) has reduced our specific vulnerability profile.</p>
+            </div>
+
+            <h3 class="section-subtitle">4.2 Business Email Compromise (BEC)</h3>
+            <div class="info-box">
+                <p><strong>Financial Impact:</strong> Direct Fraud.</p>
+                <p><strong>Mechanism:</strong> Sophisticated phishing attacks targeting accounts payable and wire transfer authorization. This remains the primary vector for direct cash theft in our sector.</p>
+                <p><strong>Status:</strong> AI-driven email filtering is currently blocking 99.8% of these attempts. However, the sophistication of attacks continues to evolve, requiring continuous model training.</p>
+            </div>
+
+            <h3 class="section-subtitle">4.3 Supply Chain Risk</h3>
+            <div class="info-box">
+                <p><strong>Financial Impact:</strong> Third-party liability and indirect downtime.</p>
+                <p><strong>Status:</strong> An enhanced security audit of our top 20 vendors is underway to ensure they do not introduce liability into our environment. This follows recent high-profile supply chain attacks in the financial sector that resulted in multi-million dollar losses.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Key Risk Indicators -->
+    <div class="slide" id="slide7">
+        <div class="section">
+            <h2 class="section-title">5. Key Risk Indicators (KRIs) & Benchmarking</h2>
+            
+            <h3 class="section-subtitle">5.1 Internal Performance Metrics (KPIs)</h3>
+            <p>We monitor the following Key Performance Indicators to gauge real-time risk levels and operational efficiency. These metrics directly correlate to financial exposure.</p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Indicator</th>
+                        <th>Current Value</th>
+                        <th>Target</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Critical Vulnerabilities</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>⚠️ MODERATE</td>
+                    </tr>
+                    <tr>
+                        <td>Endpoint Compliance</td>
+                        <td>98%</td>
+                        <td>95%</td>
+                        <td>✅ GOOD</td>
+                    </tr>
+                    <tr>
+                        <td>Phishing Click Rate</td>
+                        <td>3.2%</td>
+                        <td>&lt;5%</td>
+                        <td>✅ GOOD</td>
+                    </tr>
+                    <tr>
+                        <td>Shadow IT Alerts</td>
+                        <td>15</td>
+                        <td>&lt;10</td>
+                        <td>👁️ WATCH</td>
+                    </tr>
+                    <tr>
+                        <td>Mean Time to Detect</td>
+                        <td>2 Hours</td>
+                        <td>&lt;4 Hours</td>
+                        <td>✅ GOOD</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box blue">
+                <p><strong>Analysis:</strong> The 'Critical Vulnerabilities' metric remains slightly above target (4 vs 0) due to a legacy ERP system scheduled for decommissioning in Q4. All four vulnerabilities have compensating controls in place, reducing actual exploitability to near-zero.</p>
+            </div>
+
+            <h3 class="section-subtitle">5.2 Industry Benchmarking (Efficiency Analysis)</h3>
+            <p>We benchmark our performance against financial sector peers to ensure we are maintaining a competitive security posture without overspending.</p>
+
+            <div class="cards">
+                <div class="card">
+                    <div class="card-title">Mean Time to Patch (MTTP)</div>
+                    <div class="card-value">9 Days</div>
+                    <div class="card-desc">Industry: 21 Days (2x faster)</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">IT Security Spend</div>
+                    <div class="card-value">11%</div>
+                    <div class="card-desc">Industry: 14% (Higher efficiency)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Industry Benchmarking -->
+    <div class="slide" id="slide8">
+        <div class="section">
+            <h2 class="section-title">6. Industry Benchmarking Analysis</h2>
+            
+            <p>We compare our performance against financial sector peers to ensure competitive security posture. We are currently outperforming the industry in operational efficiency (speed) while maintaining a lean budget.</p>
+
+            <div class="chart-container">
+                <img src="chart_benchmark.png" alt="Industry Benchmarking">
+                <p style="margin-top: 15px; color: #666; font-style: italic;">Operational Efficiency vs Peers</p>
+            </div>
+
+            <div class="info-box green">
+                <p><strong>Analysis:</strong> We patch systems 2x faster than the industry average, significantly reducing our window of exposure.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Cost of Downtime -->
+    <div class="slide" id="slide9">
+        <div class="section">
+            <h2 class="section-title">7. The Cost of Downtime</h2>
+            
+            <p>High availability is a financial necessity. We have modeled the cost of outages to justify investments in redundancy and High Availability (HA) servers.</p>
+
+            <div class="chart-container">
+                <img src="chart_downtime.png" alt="Cost of Downtime">
+                <p style="margin-top: 15px; color: #666; font-style: italic;">Cumulative Cost of Critical System Outage</p>
+            </div>
+
+            <div class="example">
+                <h4>💰 Financial Justification</h4>
+                <p>Our core banking system generates approximately <strong>$45,000 in revenue per hour</strong>. When combined with idle labor costs during an outage, the financial impact escalates rapidly:</p>
+                <ul style="margin-top: 15px; line-height: 2;">
+                    <li><strong>1 Hour Outage:</strong> $85,000 Loss</li>
+                    <li><strong>24 Hour Outage:</strong> $2.04 Million Loss</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Strategic Note:</strong> Our investment in High Availability (HA) servers acts as an insurance policy against this predictable P&L impact.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: Case Study -->
+    <div class="slide" id="slide10">
+        <div class="section">
+            <h2 class="section-title">8. Q3 Case Study: The "Near Miss"</h2>
+            
+            <h3 class="section-subtitle">📅 Date: August 12, 2024</h3>
+            <h3 class="section-subtitle">🚨 Incident: Automated Ransomware Containment</h3>
+
+            <div class="info-box">
+                <h4>The Event</h4>
+                <p>On August 12, our newly deployed Endpoint Detection and Response (EDR) system flagged an unauthorized encryption attempt on a secondary server. This was a "live" ransomware attack attempt.</p>
+            </div>
+
+            <div class="info-box green">
+                <h4>The Response</h4>
+                <p>Automated containment protocols isolated the infected server within <strong>30 seconds</strong>. No human intervention was required for the initial block.</p>
+            </div>
+
+            <h3 class="section-subtitle">Financial Balance Sheet</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Cost / Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Potential Loss (Data Exfiltration & Downtime)</td>
+                        <td style="color: var(--accent); font-weight: bold;">$5,000,000</td>
+                    </tr>
+                    <tr>
+                        <td>Actual Cost (Remediation & Analysis)</td>
+                        <td>$50,000</td>
+                    </tr>
+                    <tr style="background: rgba(255, 165, 0, 0.1);">
+                        <td><strong>NET SAVINGS REALIZED</strong></td>
+                        <td style="color: #ffa500; font-weight: bold; font-size: 1rem;">$4,950,000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box blue">
+                <p>By stopping the attack at the encryption stage, we avoided the costs associated with data exfiltration, regulatory fines, and system restoration. This single event demonstrated the value of our Q1 investment in EDR technology, paying for the entire system's annual license in <strong>30 seconds</strong>.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 11: Investment Performance -->
+    <div class="slide" id="slide11">
+        <div class="section">
+            <h2 class="section-title">9. Investment Performance Analysis</h2>
+            
+            <p>A review of major security investments made earlier this year confirms their efficacy. We measure Return on Security Investment (ROSI) by calculating avoided losses.</p>
+
+            <div class="chart-container">
+                <img src="chart_roi.png" alt="ROI Analysis">
+                <p style="margin-top: 15px; color: #666; font-style: italic;">Return on Security Investment (ROSI)</p>
+            </div>
+
+            <div class="info-box green">
+                <p><strong>Key Insight:</strong> The Endpoint Detection & Response (EDR) system is our highest performing asset this year. Training programs continue to yield steady results by reducing the human attack surface.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 12: Budget Request -->
+    <div class="slide" id="slide12">
+        <div class="section">
+            <h2 class="section-title">10. Strategic Budget Request (Q4)</h2>
+            
+            <p>To maintain momentum and address the 'Mobile First' business strategy, we are requesting a targeted budget allocation of <strong>$2.4M</strong> for the next phase.</p>
+
+            <div class="chart-container">
+                <img src="chart_budget.png" alt="Budget Allocation">
+                <p style="margin-top: 15px; color: #666; font-style: italic;">Q4 2024 Budget Allocation Strategy</p>
+            </div>
+
+            <h3 class="section-subtitle">Priority Allocations</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Priority Item</th>
+                        <th>Cost</th>
+                        <th>Risk Addressed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cloud Security (CNAPP)</td>
+                        <td>$85,000</td>
+                        <td>API Data Breach</td>
+                    </tr>
+                    <tr>
+                        <td>Insider Threat Tool</td>
+                        <td>$40,000</td>
+                        <td>IP Theft</td>
+                    </tr>
+                    <tr>
+                        <td>Compliance Audit</td>
+                        <td>$25,000</td>
+                        <td>Regulatory Fines</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Slide 13: Conclusion -->
+    <div class="slide" id="slide13">
+        <div class="section">
+            <h2 class="section-title">11. Strategic Outlook & Conclusion</h2>
+            
+            <h3 class="section-subtitle">2025 Strategic Pillars</h3>
+            <p>Looking ahead to 2025, our strategy focuses on three core pillars:</p>
+
+            <div class="cards">
+                <div class="card">
+                    <div class="card-title">🔐 Zero Trust Architecture</div>
+                    <div class="card-desc">Transitioning from 'trust but verify' to 'never trust, always verify.' Projected to reduce lateral movement risk by 80%.</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">🤖 Automation & AI</div>
+                    <div class="card-desc">Implementing SOAR to handle Level 1 alerts, reducing analyst fatigue and maintaining lean headcount.</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">💼 Insurance Optimization</div>
+                    <div class="card-desc">Aim to reduce cybersecurity insurance premiums by 20% by presenting risk maturity data to underwriters.</div>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Recommendations for the Board</h3>
+            <div class="info-box">
+                <ol style="line-height: 2; margin-left: 20px;">
+                    <li><strong>Approve Q4 Budget:</strong> Authorize the $2.4M operational budget to close identified gaps in Cloud and Insider Threat defenses.</li>
+                    <li><strong>Endorse Zero Trust Roadmap:</strong> Formally support the multi-year transition to Zero Trust Architecture as a primary strategic initiative.</li>
+                    <li><strong>Establish Cyber-Risk Committee:</strong> Create a quarterly sub-committee meeting involving the CFO and CISO to review ALE metrics.</li>
+                </ol>
+            </div>
+
+            <div class="example">
+                <h4>📋 Final Statement</h4>
+                <p>In Q3 2024, the organization successfully navigated a high-threat environment while maintaining operational resilience. Our pivot to a financially driven security model has proven that strategic investments in detection and response yield measurable cost savings - most notably demonstrated by the <strong>$4.95M in avoided losses</strong> from the August incident.</p>
+                <p style="margin-top: 15px;">Continued support for the proposed budget and strategic initiatives will ensure we remain ahead of the curve, protecting not just our data, but our bottom line and shareholder value.</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; padding: 30px; background: #f8f9fa; border-radius: 10px;">
+                <p style="color: #cccccc; font-style: italic;">Report Prepared By: Office of the Chief Information Security Officer (CISO)</p>
+                <p style="color: #cccccc; font-style: italic;">October 2024</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 14: Q&A -->
+    <div class="slide" id="slide14">
+        <div class="qa-container">
+            <h1 class="qa-title">QUESTIONS & ANSWERS</h1>
+            
+            <div class="qa-prompt">
+                <p style="color: #00ffff;">> Ready for your questions_</p>
+            </div>
+
+            <div class="qa-contact">
+                <h3>CONTACT INFORMATION</h3>
+                <p><span style="color: #ffa500;">Name:</span> Ajax Abonga</p>
+                <p><span style="color: #ffa500;">Title:</span> Chief Information Security Officer (CISO)</p>
+                <p><span style="color: #ffa500;">Email:</span> ajax.abonga@company.com</p>
+                <p><span style="color: #ffa500;">Office:</span> Security Operations Center - Floor 3</p>
+            </div>
+
+            <div class="info-box blue" style="padding: 10px; margin: 10px 0;">
+                <h4 style="font-size: 0.7rem; margin-bottom: 8px;">Key Discussion Points</h4>
+                <ul style="margin-left: 20px; line-height: 1.4; font-size: 0.7rem;">
+                    <li>ROI justification for Q4 budget allocation</li>
+                    <li>Zero Trust Architecture implementation timeline</li>
+                    <li>Supply chain security audit progress</li>
+                    <li>Insurance premium reduction strategy</li>
+                    <li>Incident response automation roadmap</li>
+                </ul>
+            </div>
+
+            <div class="example" style="padding: 10px; margin: 10px 0;">
+                <h4 style="font-size: 0.65rem; margin-bottom: 6px;">Follow-Up Resources</h4>
+                <p style="font-size: 0.7rem; margin: 4px 0;"><strong>Documentation:</strong> Full technical appendices available</p>
+                <p style="font-size: 0.7rem; margin: 4px 0;"><strong>Demos:</strong> EDR and SOAR platform demonstrations</p>
+                <p style="font-size: 0.7rem; margin: 4px 0;"><strong>Deep Dives:</strong> Detailed threat intelligence briefings</p>
+            </div>
+
+            <div class="qa-thanks">
+                <p style="font-size: 1.2rem;">> THANK YOU</p>
+                <p style="font-size: 0.9rem; color: #00ffff; margin-top: 10px;">█</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 14;
+
+        function updateSlideCounter() {
+            document.getElementById('slideCounter').textContent = `SLIDE ${currentSlide} / ${totalSlides}`;
+        }
+
+        function updateButtons() {
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+        }
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            if (n > totalSlides) currentSlide = totalSlides;
+            if (n < 1) currentSlide = 1;
+            
+            document.getElementById(`slide${currentSlide}`).classList.add('active');
+            updateSlideCounter();
+            updateButtons();
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        function goToSlide(n) {
+            currentSlide = n;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                changeSlide(1);
+            }
+        });
+
+        // Initialize
+        updateButtons();
+    </script>
+</body>
+</html>
